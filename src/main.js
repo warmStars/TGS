@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import axios from 'axios';
 import store from './store';
-import "./styles/global.css";
+import '@/styles/index.scss'
 import './plugins/element.js';
 import LocalData from './api/publicMethods/LocalData';
 import { ApiPlugin } from './api/axios/index';
