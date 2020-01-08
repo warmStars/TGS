@@ -1,51 +1,80 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/home/Home.vue'
-import login from '../views/login/index.vue'
-import util from '@/api/publicMethods/utils.js';
-import scoket from "../views/websocket/index.vue"
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
-
-const routes = [
+Vue.use(Router)
+import Layout from '@/layout'
+export const constantRoutes = [
     {
         path: '/login',
-        name: 'login',
-        component: login,
+        component: () => import('@/views/login/index'),
+        hidden: true
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/404'),
+        hidden: true
     },
     {
         path: '/',
-        name: 'Home',
-        component: Home
+        component: Layout,
+        redirect: '/dashboard',
+        children: [{
+            path: 'dashboard',
+            name: 'Dashboard',
+            component: () => import('@/views/dashboard/index'),
+            meta: { title: '首页', icon: 'dashboard' }
+        }]
     },
     {
-        path: '/socket',
-        name: 'scoket',
-        component: scoket
+        path: '/example',
+        component: Layout,
+        redirect: '/example/table',
+        name: 'Example',
+        meta: { title: '实例', icon: 'example' },
+        children: [
+            {
+                path: 'table',
+                name: 'Table',
+                component: () => import('@/views/table/index'),
+                meta: { title: '表格', icon: 'table' }
+            },
+            {
+                path: 'tree',
+                name: 'Tree',
+                component: () => import('@/views/tree/index'),
+                meta: { title: '树形图', icon: 'tree' }
+            }
+        ]
+    },
+
+    {
+        path: '/form',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'Form',
+                component: () => import('@/views/form/index'),
+                meta: { title: '表单', icon: 'form' }
+            }
+        ]
     },
     {
-        path: '/about',
-        name: 'about',
-        component: () => import('../views/home/About.vue')
+        path: '*',
+        redirect: '/404',
+        hidden: true
     }
 ]
 
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes
+const createRouter = () => new Router({
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
 })
-router.beforeEach((to, from, next) => {
-    if (to.name === 'error-404') {
-        next({ path: '/login' })
-    } else if (!util.getLocalStorageData('token') && to.name !== 'login') {
-        next({ path: '/login' })
-    } else {
-        next();
-    }
-})
-router.afterEach(to => {
-    // TODO 设置 breadcrumbs
-    window.scrollTo(0, 0);
-});
+
+const router = createRouter()
+export function resetRouter() {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
+}
+
 export default router
