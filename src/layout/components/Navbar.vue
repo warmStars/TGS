@@ -46,10 +46,8 @@
                 this.$store.dispatch('toggleSideBar')
             },
             logout() {
-                console.log(2);
-                return
-                this.$store.dispatch('user/logout')
-                this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+                this.removeLocalData("token");
+                this.$router.push(`/login?redirect=${this.$route.fullPath}`);
             }
         }
     }

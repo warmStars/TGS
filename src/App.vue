@@ -8,9 +8,6 @@
     import store from '@/store/index.js';
     export default {
         name: 'app',
-        created() {
-            console.log("vuex",this.$store.state);
-        },
     }
 </script>
 

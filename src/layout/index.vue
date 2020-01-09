@@ -13,7 +13,7 @@
 
 <script>
     import { Navbar, AppMain, Sidebar } from './components'
-    // import ResizeMixin from './mixin/ResizeHandler'
+    import ResizeMixin from './mixin/ResizeHandler'
 
     export default {
         name: 'Layout',
@@ -22,7 +22,7 @@
             Sidebar,
             AppMain
         },
-        // mixins: [ResizeMixin],
+        mixins: [ResizeMixin],
         computed: {
             sidebar() {
                 return this.$store.state.sidebar
@@ -46,7 +46,7 @@
             handleClickOutside() {
                 this.$store.dispatch('closeSideBar', { withoutAnimation: false })
             }
-        }
+        },
     }
 </script>
 

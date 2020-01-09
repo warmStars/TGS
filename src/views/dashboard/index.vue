@@ -14,6 +14,17 @@
                 name: "123"
             }
         },
+        created() {
+            this.post({
+                url: "/etcWallet/settlementAccountStatusQuery",
+                data: {
+                    corpMediumId: "!@#@23",
+                },
+                onload: ({ data }) => {
+                    console.log(data);
+                }
+            })
+        },
     }
 </script>
 

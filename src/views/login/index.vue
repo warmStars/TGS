@@ -29,23 +29,46 @@
     export default {
         name: 'login',
         data() {
+            const validateUsername = (rule, value, callback) => {
+                if (value == "") {
+                    callback(new Error('请输入您的账号'))
+                } else {
+                    callback()
+                }
+            }
+            const validatePassword = (rule, value, callback) => {
+                if (value.length < 6) {
+                    callback(new Error('密码不能少于6位'))
+                } else {
+                    callback()
+                }
+            }
             return {
                 form: {
                     userName: "",
                     passWord: ""
                 },
+                redirect: undefined,
                 rules: {
                     userName: [{
                         required: true,
-                        message: '请输入您的账户',
+                        validator: validateUsername,
                         trigger: 'blur'
                     }],
                     passWord: [{
                         required: true,
-                        message: '请输入您的密码',
+                        validator: validatePassword,
                         trigger: 'blur'
                     }],
                 }
+            }
+        },
+        watch: {
+            $route: {
+                handler: function (route) {
+                    this.redirect = route.query && route.query.redirect;
+                },
+                immediate: true
             }
         },
         methods: {
@@ -68,19 +91,13 @@
                         // }).catch(err => {
                         //     console.log(err);
                         // })
-                        this.$store.state.Authorization = "123";
                         this.setLocalData('token', "123");
-                        this.$router.push({
-                            path: '/'
-                        })
+                        this.$router.push({ path: this.redirect || '/' })
                     } else {
                         return false;
                     }
                 });
             },
-        },
-        created() {
-
         },
     }
 </script>
