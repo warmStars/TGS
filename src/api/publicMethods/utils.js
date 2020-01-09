@@ -1,5 +1,7 @@
 // import { isArray as _isArray, isFunction as _isFunction, each as _each } from 'lodash';
 import dayjs from 'dayjs';
+import defaultSettings from '@/settings'
+const title = defaultSettings.title || 'VAT'
 let util = {};
 util.formatDateTime = function (date) {
     return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
@@ -114,5 +116,11 @@ util.setLocalStorageData = function (key, data) {
 }
 util.removeStorageData = function (key) {
     localStorage.removeItem(key);
+}
+util.getPageTitle = function (pageTitle) {
+    if (pageTitle) {
+        return `${pageTitle} - ${title}`
+    }
+    return `${title}`
 }
 export default util;

@@ -118,7 +118,7 @@
 
     .specific {
         position: absolute;
-        top: 40%;
+        top: 50%;
         left: 50%;
         margin-left: -225px;
         margin-top: -150px;

@@ -9,7 +9,7 @@
     export default {
         name: 'app',
         created() {
-            console.log("vuex",this.$store.state.Authorization);
+            console.log("vuex",this.$store.state);
         },
     }
 </script>

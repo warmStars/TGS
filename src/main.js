@@ -3,12 +3,13 @@ import App from './App.vue';
 import router from './router';
 import axios from 'axios';
 import store from './store';
-import '@/styles/index.scss'
 import './plugins/element.js';
 import LocalData from './api/publicMethods/LocalData';
 import { ApiPlugin } from './api/axios/index';
 import OSPAjax from './components/Ajax';
 import OSPApi from './components/APIMan';
+import '@/permission';
+import '@/styles/index.scss'
 Vue.use(OSPApi);
 Vue.use(OSPAjax, axios);
 Vue.use(ApiPlugin);
