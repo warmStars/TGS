@@ -123,4 +123,7 @@ util.getPageTitle = function (pageTitle) {
     }
     return `${title}`
 }
+util.isExternal = function (path) {
+    return /^(https?:|mailto:|tel:)/.test(path)
+}
 export default util;

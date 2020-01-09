@@ -18,7 +18,7 @@
     import variables from '@/styles/variables.scss'
 
     export default {
-        components: { SidebarItem, Logo },
+        components: { Logo, SidebarItem },
         computed: {
             routes() {
                 return this.$router.options.routes
